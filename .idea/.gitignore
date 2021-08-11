@@ -3,4 +3,5 @@
 /workspace.xml
 /out/*
 /Learn.iml
-/.idea/*
+/.idea/libraries/algs4.xml
+/.idea/misc.xml
