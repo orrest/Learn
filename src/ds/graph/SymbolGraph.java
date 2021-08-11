@@ -33,7 +33,7 @@ public class SymbolGraph {
             String[] a = in.readLine().split(delim);
             int v = st.get(a[0]);                           // 每行第一个字符串，如，电影名
             for (int i = 1; i < a.length; i++)              // 每行剩下的字符串，如，演员
-                G.addEdge(v, st.get(a[i]));                 // 构造如 电影名 -> 演员 的边
+                G.addEdge(v, st.get(a[i]));                 // 使用索引构造如 电影名 -> 演员 的边
         }
     }
 
@@ -73,7 +73,9 @@ public class SymbolGraph {
         Graph G = sg.G();
 
         while (StdIn.hasNextLine()){
-            String source = StdIn.readLine();
+            String source = StdIn.readLine(); // 反向查找, 如, 演员的名字
+            // 因为是无向图, 按电影->演员构造的边.
+            // 所以演员也连接着电影, 直接查找就好.
             for (int w : G.adj(sg.index(source)))
                 StdOut.println("   " + sg.name(w));
         }
