@@ -1,6 +1,7 @@
 # Default ignored files
 /shelf/
 /workspace.xml
-../out/*
+../out/
 ../Learn.iml
-/libraries/*
+/libraries/algs4.xml
+/misc.xml

@@ -1,13 +1,13 @@
 package ds.graph;
 
 public class DepthFirstSearch implements Search{
-    private boolean[] mark;     // 记录其它节点与起点 s 的连通性
+    private final boolean[] mark;     // 记录其它节点与起点 s 的连通性
     private int count;          // 记录 s 所在的连通分量的节点个数
 
     /**
      * 根据输入构造图并遍历得到起点 s 与其他节点的连通性的解。
-     * @param g
-     * @param s
+     * @param g 临接表数组图
+     * @param s 起点顶点
      */
     public DepthFirstSearch(Graph g, int s){
         this.mark = new boolean[g.V()];
@@ -31,7 +31,7 @@ public class DepthFirstSearch implements Search{
     /**
      * 检查 s 和 v 是否连通。
      * @param v 一个节点
-     * @return
+     * @return 是否连通
      */
     @Override
     public boolean marked(int v){
