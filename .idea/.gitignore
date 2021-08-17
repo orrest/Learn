@@ -1,6 +1,6 @@
 # Default ignored files
 /shelf/
 /workspace.xml
-/out/*
-/Learn.iml
-/.idea/*
+../out/*
+../Learn.iml
+/libraries/*
