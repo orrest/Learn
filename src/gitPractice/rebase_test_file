@@ -5,3 +5,11 @@
 在远程分支上进行多次提交：
 第二次
 第三次
+第四次，
+  此时
+     origin/master o-1-2-3-4
+            master o
+
+  如果master进行一次rebase，那么
+     origin/master o-1-2-3-4
+            master o-1-2-3-4
