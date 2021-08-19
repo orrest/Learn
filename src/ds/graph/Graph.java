@@ -42,13 +42,26 @@ public class Graph {
     public int E(){return this.edge;}
 
     public void addEdge(int v, int w){
+        if (v == w)
+            throw new RuntimeException("Self cycle NOT allowed."); // 自环
+        if (hasEdge(v, w))
+            throw new RuntimeException("Parallel edge NOT allowed."); // 平行边
+
         adj[v].add(w);
         adj[w].add(v);
         this.edge ++;
+    }
+
+    public boolean hasEdge(int v, int w){
+        for (int a : adj[v])
+            if (a == w) return true;
+
+        return false;
     }
 
     public Iterable<Integer> adj(int v){
         return adj[v];
     }
 
+    protected Bag<Integer>[] getGraphDataStructure(){ return adj; }
 }
