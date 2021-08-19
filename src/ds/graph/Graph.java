@@ -13,10 +13,11 @@ public class Graph {
      * Initialize ds.graph with vertexes only.
      * @param V vertex num
      */
+    @SuppressWarnings("unchecked")
     public Graph(int V){
         this.vertex = V;
         this.edge = 0;
-        this.adj = new Bag[V];
+        this.adj = (Bag<Integer>[]) new Bag[V];
         for(int i = 0; i < this.adj.length; i++){
             this.adj[i] = new Bag<>();
         }
@@ -42,11 +43,6 @@ public class Graph {
     public int E(){return this.edge;}
 
     public void addEdge(int v, int w){
-        if (v == w)
-            throw new RuntimeException("Self cycle NOT allowed."); // 自环
-        if (hasEdge(v, w))
-            throw new RuntimeException("Parallel edge NOT allowed."); // 平行边
-
         adj[v].add(w);
         adj[w].add(v);
         this.edge ++;
