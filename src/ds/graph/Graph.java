@@ -59,5 +59,22 @@ public class Graph {
         return adj[v];
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < this.V(); i++){
+            sb.append(i).append("\t");
+            for (int v : adj(i))
+                sb.append("-> ").append(v);
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
+
     protected Bag<Integer>[] getGraphDataStructure(){ return adj; }
+
+    public static void main(String[] args) {
+        Graph G = new Graph(new In(args[0]));
+        System.out.println(G);
+    }
 }
