@@ -7,8 +7,7 @@ public class Graph {
     private final int vertex;
     private int edge;
     private Bag<Integer>[] adj;
-
-
+    
     /**
      * Initialize ds.graph with vertexes only.
      * @param V vertex num

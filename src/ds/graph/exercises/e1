@@ -60,3 +60,7 @@
         3: 0 -> 2
 
 4.1.7 给Graph加一个toString方法。
+
+4.1.8 用union-find实现4.1.2.3中的搜索 (Search.java) API
+    用UF重新构建一遍图就得到了想要的
+
