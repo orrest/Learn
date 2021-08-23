@@ -1,5 +1,7 @@
 package ds.graph;
 
+import edu.princeton.cs.algs4.In;
+
 import java.util.LinkedList;
 
 public class DepthFirstPaths implements Paths{
@@ -13,7 +15,7 @@ public class DepthFirstPaths implements Paths{
      * 为什么不记录去向？
      * - 因为去了之后还要折回，那么第一次的去向就被覆盖了。
      */
-    private final int[] path;
+    private final int[] edgeTo;
     private final int s;
 
     /**
@@ -24,7 +26,7 @@ public class DepthFirstPaths implements Paths{
      */
     public DepthFirstPaths(Graph G, int s){
         marked = new boolean[G.V()];
-        path = new int[G.V()];
+        edgeTo = new int[G.V()];
         this.s = s;
         dfs(G, s);
     }
@@ -38,7 +40,7 @@ public class DepthFirstPaths implements Paths{
         marked[v] = true;
         for (int w : G.adj(v)){
             if (!marked[w]){
-                path[w] = v;
+                edgeTo[w] = v;
                 dfs(G, w);
             }
         }
@@ -64,10 +66,29 @@ public class DepthFirstPaths implements Paths{
         if (!this.hasPathTo(v))  return new LinkedList<>();
 
         LinkedList<Integer> stack = new LinkedList<>();
-        for (int w = v; w != s; w = path[w]){
+        // 从终点一直返回起点
+        for (int w = v; w != s; w = edgeTo[w]){
             stack.push(w);
         }
         stack.push(s);
         return stack;
+    }
+
+    public static void main(String[] args) {
+        Graph G = new Graph(new In(args[0]));
+        int s = Integer.parseInt(args[1]);
+
+        Paths search = new DepthFirstPaths(G, s);
+
+        for(int v = 0; v < G.V(); v++){
+            System.out.print(s + " to " + v + ": ");
+            if (search.hasPathTo(v)){
+                for (int x : search.pathTo(v)){
+                    if (x == s) System.out.print(x);
+                    else System.out.print("-" + x);
+                }
+            }
+            System.out.println();
+        }
     }
 }
