@@ -3,7 +3,14 @@ package ds.graph;
 import java.util.LinkedList;
 import java.util.Queue;
 
+/**
+ * 找到两点之间的最短路径
+ */
 public class BreadthFirstPaths implements Paths{
+    /**
+     * 因为是无向图，子节点的邻居也是父节点，所以需要标记一下;
+     * 同时，marked数组可以判断顶点是否与起点连通（是否从起点开始到达过）。
+     */
     private final boolean[] marked;
     private final int[] path;
     private final int s;
@@ -18,7 +25,7 @@ public class BreadthFirstPaths implements Paths{
     private void bfs(Graph G, int s) {
         Queue<Integer> queue = new LinkedList<>();
         queue.offer(s);
-        marked[s] = true;
+        marked[s] = true;   // 因为是无向图，子节点的邻居也是父节点，所以需要标记一下。
         while(!queue.isEmpty()){
             int v = queue.poll();
             for(int w : G.adj(v)){
