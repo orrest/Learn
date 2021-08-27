@@ -15,6 +15,11 @@ public class BreadthFirstPaths implements Paths{
     private final int[] path;
     private final int s;
 
+    /**
+     * 得到各顶点到起点的最短路径
+     * @param G 一副无向图
+     * @param s 起点
+     */
     public BreadthFirstPaths(Graph G, int s) {
         marked = new boolean[G.V()];
         path = new int[G.V()];
@@ -22,6 +27,11 @@ public class BreadthFirstPaths implements Paths{
         bfs(G, s);
     }
 
+    /**
+     * 通过BFS得到各顶点到起点的最短路径
+     * @param G 一副无向图
+     * @param s 起点
+     */
     private void bfs(Graph G, int s) {
         Queue<Integer> queue = new LinkedList<>();
         queue.offer(s);

@@ -3,11 +3,16 @@ package ds.graph;
 import edu.princeton.cs.algs4.Bag;
 import edu.princeton.cs.algs4.In;
 
+import java.io.FileNotFoundException;
+
 public class Graph {
-    private final int vertex;
-    private int edge;
-    private Bag<Integer>[] adj;
-    
+    protected int vertex;
+    protected int edge;
+    protected Bag<Integer>[] adj;
+
+    /* For extend purpose, won't use. */
+    protected Graph(){}
+
     /**
      * Initialize ds.graph with vertexes only.
      * @param V vertex num
@@ -62,9 +67,9 @@ public class Graph {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < this.V(); i++){
-            sb.append(i).append("\t");
+            sb.append(i).append(": ");
             for (int v : adj(i))
-                sb.append("-> ").append(v);
+                sb.append(" ").append(v);
             sb.append("\n");
         }
         return sb.toString();
@@ -72,7 +77,7 @@ public class Graph {
 
     protected Bag<Integer>[] getGraphDataStructure(){ return adj; }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         Graph G = new Graph(new In(args[0]));
         System.out.println(G);
     }

@@ -188,4 +188,54 @@
     GraphDeleteVertexReserveConnectivity.java
 
 4.1.11 使用算法4.2 BFS，中的bfs(G,0)来处理由Graph构造函数从tinyGex2.txt得到的图，并画出edgeTo[]所表示的树。
+    tinyGex2:
+        0	-> 5-> 2-> 6
+        1	-> 4-> 8-> 11
+        2	-> 5-> 6-> 0-> 3
+        3	-> 10-> 6-> 2
+        4	-> 1-> 8
+        5	-> 0-> 10-> 2
+        6	-> 2-> 3-> 0
+        7	-> 8-> 11
+        8	-> 1-> 11-> 7-> 4
+        9
+        10	-> 5-> 3
+        11	-> 8-> 7-> 1
 
+            0
+        2   5   6
+    3   10
+
+*4.1.12 如果v和w都不是根结点，能由BFS计算他们间的距离吗？
+    When neither v nor w are at the root, the BFS tree tell us that if they are
+    on the same branch, there is a path between v and w of distance equal to the
+     number of edges between them in the branch.
+    If they are not on the same branch, there is a path between v and w of
+    distance Dv + Dw, where Dv is the distance from the root to vertex v and Dw
+    is the distance from the root to vertex w.
+
+4.1.13 为BreadthFirstPaths的API添加并实现一个方法distTo()，返回从起点到给定的顶点的最短路径的长度，
+    它所需的时间（调用distTo的时间，不包括构建它的时间...）应该为常数。
+    BFSDistTo.java
+
+*4.1.14 如果用栈代替队列来实现广度优先搜索，我们还能得到最短路径吗？
+    (用栈怎么BFS？
+        用两个栈吗：
+            栈1没孩子节点直接出栈，有孩子节点存入栈2，直到栈1为空当前层结束，
+            从栈2开始继续，将下一层的节点放进栈1。
+            两栈都为空时，搜索结束。
+        但我都用两个栈了为什么不直接模拟一个队列？
+    )
+
+4.1.15 修改Graph的输入流构造函数，允许从标准输入读入图的邻接表（方法类似于Symbo-lGraph），
+    如图4.1.26的tinyGadj.txt所示。在顶点和边的总数之后，每一行由一个顶点和它的所有相邻顶点组成。
+    GraphAdjConstruct.java
+
+4.1.16 顶点v的离心率是它和离它最远的顶点的最短距离。图的直径即所有顶点的最大离心率，半径为所有顶点的最
+    小离心率，中点为离心率和半径相等的顶点。实现以下API，如表4.1.10所示。
+    public class GraphProperties
+            GraphProperties(Graph G)        构造函数（如果G不连通，抛出异常）
+        int eccentricity(int v)             v的离心率
+        int diameter()                      G的直径
+        int radius()                        G的半径
+        int center()                        G的某个中点
