@@ -2,6 +2,7 @@ package ds.graph.exercises;
 
 import ds.graph.Graph;
 import edu.princeton.cs.algs4.In;
+import edu.princeton.cs.algs4.StdOut;
 
 import java.util.*;
 
@@ -24,12 +25,13 @@ public class GraphProperties {
     private void allBfs(Graph G){
         for (int v = 0; v < G.V(); v++){
             Arrays.fill(distTo, 0);
+            Arrays.fill(marked, false); // 忘记把marked重置了!
             e[v] = bfs(G, v);
         }
     }
 
     /**
-     * 找到一个顶点的离心率
+     * 离心率，找到顶点v和其他顶点间最短路径里面最大的
      * @param G 一副图
      * @param v 一个顶点
      * @return 一个顶点的离心率
@@ -48,24 +50,26 @@ public class GraphProperties {
                 }
             }
         }
-        return eccentricityOfVertex(distTo, Math::max);
+        return distTo[findMaxIndexInArray(distTo)];
     }
 
-    /**
-     * 离心率为离这个顶点最远的顶点的最短距离
-     * @param distTo 一个顶点与其它顶点的最短路径
-     * @return 离心率
-     */
-    private int eccentricityOfVertex(int[] distTo, ICompareFunc icf){
-        int res = Integer.MIN_VALUE;
-        for (int t : distTo) {
-            res = icf.compare(t, res);
+    private int findMaxIndexInArray(int[] arr){
+        int index = 0;
+        for (int i = 0; i < arr.length; i++){
+            index = arr[i] > arr[index] ? i : index;
         }
-        return res;
+        return index;
+    }
+
+    private int findMinIndexInArray(int[] arr){
+        int index = 0;
+        for (int i = 0; i < arr.length; i++){
+            index = arr[i] < arr[index] ? i : index;
+        }
+        return index;
     }
 
     /**
-     * 离心率，找到顶点v和其他顶点间最短路径里面最大的
      * @param v 顶点
      * @return 离心率
      */
@@ -74,47 +78,47 @@ public class GraphProperties {
     }
 
     /**
-     * @return 所有顶点中最大的离心率
+     * @return 直径, 所有顶点中最大的离心率
      */
     public int diameter(){
-        return eccentricityOfVertex(e, Math::max);
+        return e[findMaxIndexInArray(e)];
     }
 
     /**
-     * @return 所有顶点中最小的离心率
+     * @return 半径, 所有顶点中最小的离心率
      */
     public int radius(){
-        return eccentricityOfVertex(e, Math::min);
+        return e[findMinIndexInArray(e)];
     }
 
     /**
-     * @return 离心率和半径相等的顶点为图的中点
+     * @return 一个顶点, 它的离心率和半径相等
      */
     public int center(){
-        return 0;
-    }
-
-    interface ICompareFunc{
-        /**
-         * @param a 一个数字
-         * @param b 另一个数字
-         * @return 返回比较后得到的数字
-         */
-        int compare(int a, int b);
+        return findMinIndexInArray(e);
     }
 
     public static void main(String[] args) {
-        Graph G = new Graph(new In(args[0]));
-        GraphProperties p = new GraphProperties(G);
+        Graph graph = new Graph(11);
+        graph.addEdge(0 ,1);
+        graph.addEdge(1 ,2);
+        graph.addEdge(2 ,3);
+        graph.addEdge(3 ,4);
+        graph.addEdge(4 ,5);
+        graph.addEdge(5 ,6);
+        graph.addEdge(6 ,7);
+        graph.addEdge(7 ,8);
+        graph.addEdge(8 ,9);
+        graph.addEdge(9 ,10);
 
-        System.out.println("离心率");
-        System.out.println(p.eccentricity(0));
-        System.out.println("直径");
-        System.out.println(p.diameter());
-        System.out.println("半径");
-        System.out.println(p.radius());
-        System.out.println("中点");
-        System.out.println(p.center());
+        GraphProperties graphProperties = new GraphProperties(graph);
+        StdOut.println("Diameter: " + graphProperties.diameter() + " Expected: 10");
+        StdOut.println("Radius: " + graphProperties.radius() + " Expected: 5");
+        StdOut.println("Center: " + graphProperties.center() + " Expected: 5");
+
+        for (int i = 0; i < graphProperties.e.length; i++){
+            System.out.println(i+" "+graphProperties.e[i]);
+        }
     }
 }
 
