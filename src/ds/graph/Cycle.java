@@ -15,6 +15,7 @@ public class Cycle {
     }
 
     /**
+     * 从一个点开始，BFS.
      * 1. 标记当前节点
      * 2. 递归地去标记未被标记过的邻居节点
      * 3. 判断递归结束后是否返回根节点
@@ -30,7 +31,7 @@ public class Cycle {
      *
      * @param G 无向图
      * @param v 开始节点
-     * @param u 子树根节点
+     * @param u 根节点
      */
     private void dfs(Graph G, int v, int u){
         marked[v] = true;

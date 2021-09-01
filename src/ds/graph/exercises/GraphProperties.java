@@ -1,7 +1,6 @@
 package ds.graph.exercises;
 
 import ds.graph.Graph;
-import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdOut;
 
 import java.util.*;
@@ -11,22 +10,66 @@ public class GraphProperties {
     private final int[] distTo;   // 记录每个顶点到其它顶点的最短路径，其中最大的为离心率
     private final int[] e;    // 记录所有顶点的离心率
 
+    private final int[] edgeTo;
+    private int girth;
+
     public GraphProperties(Graph G){
         marked = new boolean[G.V()];
         distTo = new int[G.V()];
         e = new int[G.V()];
-        allBfs(G);
+
+        edgeTo = new int[G.V()];
+        girth = Integer.MAX_VALUE;
+
+        allEccentricity(G);
+        computeGirth(G);
+    }
+
+    private void computeGirth(Graph G){
+        for (int v = 0; v < G.V(); v++){
+            Arrays.fill(marked, false);
+            Arrays.fill(distTo, 0);
+            girth = Math.min(girth, bfsForGirth(G, v));
+        }
+    }
+
+    private int bfsForGirth(Graph G, int s){
+        int shortestCycle = Integer.MAX_VALUE;
+
+        Queue<Integer> queue = new LinkedList<>();
+        queue.offer(s);
+        marked[s] = true;
+
+        while (!queue.isEmpty()){
+            int v = queue.poll();
+            for (int w : G.adj(v)){
+                if (!marked[w]){
+                    queue.offer(w);
+                    marked[w] = true;
+                    distTo[w] = distTo[v]+1;
+                    edgeTo[w] = v;
+                }else if (w != edgeTo[v]){
+                    // Cycle found
+                    shortestCycle = Math.min(
+                            shortestCycle,
+                            distTo[v]+distTo[w]+1
+                    );
+                }
+            }
+        }
+
+        return shortestCycle;
     }
 
     /**
      * 找到所有顶点的离心率
      * @param G 一副图
      */
-    private void allBfs(Graph G){
+    private void allEccentricity(Graph G){
         for (int v = 0; v < G.V(); v++){
             Arrays.fill(distTo, 0);
             Arrays.fill(marked, false); // 忘记把marked重置了!
-            e[v] = bfs(G, v);
+            e[v] = bfsForEccentricity(G, v);
         }
     }
 
@@ -36,7 +79,7 @@ public class GraphProperties {
      * @param v 一个顶点
      * @return 一个顶点的离心率
      */
-    private int bfs(Graph G, int v){
+    private int bfsForEccentricity(Graph G, int v){
         Queue<Integer> queue = new LinkedList<>();
         queue.offer(v);
         marked[v] = true;
