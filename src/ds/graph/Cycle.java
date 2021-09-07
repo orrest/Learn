@@ -3,7 +3,7 @@ package ds.graph;
 import edu.princeton.cs.algs4.In;
 
 public class Cycle {
-    private boolean[] marked;
+    private final boolean[] marked;
     private boolean hasCycle;
 
     public Cycle(Graph G){
