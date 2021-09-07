@@ -454,3 +454,77 @@ done 9
 
 count ++
 
+4.1.19 使用Cycle在由Graph的输入流构造函数从tinyGex2.txt（请见练习4.1.2）得到的图中找到的一个环并按照本节示意图的样式给出详细的轨迹。在最
+    坏情况下，Cycle构造函数的运行时间的增长数量级是多少？
+    O(V+E), 邻接表中有的边数为2*E, 每个边都被访问了一遍, 初始化marked数组需要V.
+
+    tinyGex2:
+        0	-> 5-> 2-> 6
+        1	-> 4-> 8-> 11
+        2	-> 5-> 6-> 0-> 3
+        3	-> 10-> 6-> 2
+        4	-> 1-> 8
+        5	-> 0-> 10-> 2
+        6	-> 2-> 3-> 0
+        7	-> 8-> 11
+        8	-> 1-> 11-> 7-> 4
+        9
+        10	-> 5-> 3
+        11	-> 8-> 7-> 1
+
+            0   1   2   3   4   5   6   7   8   9   10  11
+    marked  T   T   T   T   T   T   T   T   T       T   T
+
+
+                                                                                            v   u
+dfs(0)                                                                      5 2 6           0   0
+| dfs(5)                                                                    (0) 10 2        5   0
+| | check w=0           此时 w=0是v=5的来向(也即u)
+| | dfs(10)                                                                 (5) 3           10  5
+| | | check w=5         此时 w=5是v=10的来向(也即u)
+| | | dfs(3)                                                                (10) 6 2        3   10
+| | | | check w=10      此时 w=10是v=3的来向(也即u)
+| | | | dfs(6)                                                              2 (3) (0)       6   3
+| | | | | dfs(2)                                                            (5 6 0 3)       2   6
+| | | | | | check w=5   w!=u hasCycle=true 此时w不是v=2的来向所以有环
+| | | | | | check w=6   此时是w=6是v=2的来向(也即u)
+| | | | | | check w=0   w!=u
+| | | | | | check w=3   w!=u
+| | | | | done 2
+| | | | | check w=3     (返回的时候不会检测了,因为if else)
+| | | | | check w=0
+| | | | done 6
+| | | | check 2
+| | | done 3
+| | done 10
+| | check 2
+| done 5
+| check 2
+| check 6
+done 0
+
+dfs(1)                                                                      4 8 11          1   1
+| dfs(4)                                                                    1 8             4   1
+| | check w=1           w==u
+| | dfs(8)                                                                  1 11 7 4        8   4
+| | | check w=1         w!=u hasCycle=true
+| | | dfs(11)                                                               8 7 1           11  8
+| | | | check w=8       w==u
+| | | | dfs(7)                                                              8 11            7   11
+| | | | | check w=8     w!=u
+| | | | | check w=11    w==u
+| | | | done 7
+| | | | check w=1       w!=u
+| | | done 11
+| | | check w=7
+| | | check w=4
+| | done 8
+| done 4
+| check 8
+| check 11
+done 1
+
+dfs(9)
+|
+done 9
+
