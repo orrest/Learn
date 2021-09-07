@@ -51,6 +51,10 @@ public class GraphProperties {
                     distTo[w] = distTo[v]+1;
                     edgeTo[w] = v;
                 }else if (w != edgeTo[v]){
+                    // 当前w被标记过了, 并且有其它最短路径到这个w,
+                    // 因此到达这个w有两条路径, 一条从v, 另一条edgeTo[v],
+                    // 因此为一个环.
+                    // 这个环的长度为: distTo[v]+distTo[w]+(v和w之间的边).
                     // Cycle found
                     shortestCycle = Math.min(
                             shortestCycle,
