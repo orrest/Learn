@@ -1,0 +1,38 @@
+@startuml
+title chain_of_responsibility
+
+abstract class Handler<<abstract>>{
+    # Handler chain
+    + <<abstract>> doHandle(user)
+    + final void next(Handler handler)
+}
+
+class ValidateHandler{
+    + doHandle(user)
+}
+
+class LoginHandler{
+    + doHandle(user)
+}
+
+class AuthHandler{
+    + doHandle(user)
+}
+
+
+ValidateHandler -up-|> Handler
+LoginHandler -up-|> Handler
+AuthHandler -up-|> Handler
+
+ValidateHandler .right.> LoginHandler: next
+LoginHandler .right.> AuthHandler: next
+
+note as N1
+1. 每个Handler中的chain都指向下一个
+  Handler，这是在初始化Handler时设置好的：
+    validateHandler.next(loginHandler);
+
+2. 在每个Handler.doHandle结束时调用
+  chain.doHandle执行下一环节。
+end note
+@enduml
