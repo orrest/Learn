@@ -3,10 +3,28 @@ title simple factory
 
 note as N1
 1、封装创建细节（更容易创建）；
-2、（结合反射）标准化某类事物的创建，
+2、标准化某类事物的创建，
   隐藏判断逻辑。
 end note
 
+interface IShape{
+    + draw()
+}
 
+class Circle extends IShape{
+}
+
+class Rectangle extends IShape{
+}
+
+class Square extends IShape{
+}
+
+class ShapeFactory{
+    - createShape(Class<? extends IShape>)
+    + createShape(String shapeName)
+}
+
+ShapeFactory ..> IShape: <<create shape>>
 
 @enduml

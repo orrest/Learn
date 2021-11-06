@@ -8,11 +8,9 @@ public class Test {
     public static void main(String[] args) {
         ShapeFactory shapeFactory = new ShapeFactory();
 
-
-
-        IShape circle = shapeFactory.createShape(Circle.class);
+        String shapeName = "Circle";
+        IShape circle = shapeFactory.createShape(shapeName);
         circle.draw();
-
 
     }
 }
