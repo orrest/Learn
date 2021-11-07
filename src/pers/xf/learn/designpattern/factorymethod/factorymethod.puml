@@ -1,0 +1,46 @@
+@startuml
+title factory method pattern
+
+note as N1
+相比简单工厂更易拓展
+end note
+
+interface IShape{
+    + draw()
+}
+
+class Circle{
+}
+
+class Rectangle{
+}
+
+class Square{
+}
+
+interface IShapeFactory{
+    + createShape()
+}
+
+class CircleFactory{
+}
+
+class RectangleFactory{
+}
+
+class SquareFactory{
+}
+
+Square -up-|> IShape
+Rectangle -up-|> IShape
+Circle -up-|> IShape
+
+Circle "1" .down. "1" CircleFactory: <<crate>> <
+Square "1" .down. "1" SquareFactory: <<crate>> <
+Rectangle "1" .down. "1" RectangleFactory: <<crate>> <
+
+IShapeFactory <|-up- CircleFactory
+IShapeFactory <|-up- SquareFactory
+IShapeFactory <|-up- RectangleFactory
+
+@enduml
