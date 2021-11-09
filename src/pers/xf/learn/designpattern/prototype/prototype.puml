@@ -1,0 +1,22 @@
+@startuml
+title prototype pattern
+
+interface Cloneable{
+}
+
+interface Serializable{
+}
+
+class Object{
+    + clone()
+}
+
+class Concrete{
+    + clone()
+    + deepClone()
+}
+
+Concrete -up-|> Cloneable
+Concrete -up-|> Serializable
+Concrete --|> Object
+@enduml
