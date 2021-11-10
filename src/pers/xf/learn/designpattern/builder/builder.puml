@@ -1,0 +1,24 @@
+@startuml
+title builder pattern
+
+interface IBuilder{
+    + <<abstract>> void build()
+}
+
+class Builder{
+    - Product product;
+    + Product build()
+    + Builder addName(name);
+    + Builder addType(type);
+}
+
+class Product{
+    - String name;
+    - int type;
+    + String toString();
+}
+
+Builder -up-|> IBuilder
+Product "1" <-up-* "1" Builder
+
+@enduml
