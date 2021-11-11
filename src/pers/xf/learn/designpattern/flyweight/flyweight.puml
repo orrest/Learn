@@ -1,0 +1,17 @@
+@startuml
+title flyweight pattern
+
+interface ITicket{
+}
+
+class TrainTicket{
+}
+
+class TicketFactory{
+    + {static} Map<String, ITicket> ticketPool = new ConcurrentMap<>();
+}
+
+TrainTicket .up.|> ITicket
+TicketFactory *-down- ITicket
+
+@enduml
