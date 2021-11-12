@@ -1,0 +1,30 @@
+@startuml
+title static proxy
+
+note as N1
+对于Binder的理解暂不到位，
+代理模式是一定有的，细节还
+有些不清晰
+end note
+
+class Binder{
+}
+
+class BinderProxy{
+    - Binder mRemote;
+
+    + funcDefinedInAIDLInterface()
+}
+
+note right: 处理远程调用的细节
+
+interface IBinder{
+}
+
+Binder .up.|> IBinder
+BinderProxy .up.|> IBinder
+Binder --* "1" BinderProxy
+Test -up-> BinderProxy: <<call>>
+
+
+@enduml
