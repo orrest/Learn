@@ -17,21 +17,21 @@ public class OrderServiceStaticProxy implements IOrderService {
 
     @Override
     public int createOrder(Order order) {
-        before();
+        before(order);
+        orderService.createOrder(order);
+        return after();
+    }
+
+    private void before(Order order){
         Long time = order.getCreateTime();
         int dbRouter = Integer.parseInt(yearFormat.format(new Date(time)));
         System.out.println("静态代理分配到【DB_"+dbRouter+"】数据源处理数据");
         DynamicDataSourceEntry.set(dbRouter);
-        orderService.createOrder(order);
-        after();
+        System.out.println("----Proxy before method.----");
+    }
+
+    private int after(){
+        System.out.println("----Proxy after method.----");
         return 0;
-    }
-
-    private void before(){
-        System.out.println("Proxy before method.");
-    }
-
-    private void after(){
-        System.out.println("Proxy after method.");
     }
 }
