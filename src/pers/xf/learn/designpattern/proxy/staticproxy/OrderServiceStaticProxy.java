@@ -1,11 +1,19 @@
 package pers.xf.learn.designpattern.proxy.staticproxy;
 
+import pers.xf.learn.designpattern.proxy.DynamicDataSourceEntry;
 import pers.xf.learn.designpattern.proxy.IOrderService;
 import pers.xf.learn.designpattern.proxy.Order;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * 将OrderService包裹起来，createOrder前进行数据源处理，
+ * 对于OrderService来说是多了一层；
+ * 而对于使用来说，
+ * 只不过是由调用      OrderService.createOrder，
+ * 变成调用           OrderServiceStaticProxy.createOrder。
+ */
 public class OrderServiceStaticProxy implements IOrderService {
     private final SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
 

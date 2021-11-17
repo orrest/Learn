@@ -1,4 +1,4 @@
-package pers.xf.learn.designpattern.proxy.staticproxy;
+package pers.xf.learn.designpattern.proxy;
 
 /**
  * 动态切换数据源
