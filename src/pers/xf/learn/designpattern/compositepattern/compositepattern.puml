@@ -1,0 +1,28 @@
+@startuml
+
+class ConfigurationContainer{
+}
+
+class WindowContainer{
+}
+
+class RootWindowContainer{
+}
+
+WindowContainer -up-|> ConfigurationContainer
+RootWindowContainer -up-|> WindowContainer
+
+E -up-* RootWindowContainer
+T -up-* RootWindowContainer
+H -up-* RootWindowContainer
+
+class E<<extends WindowContainer>>{
+}
+
+class T<<extends WindowContainer>>{
+}
+
+class H<<extends WindowContainer>>{
+}
+
+@enduml
