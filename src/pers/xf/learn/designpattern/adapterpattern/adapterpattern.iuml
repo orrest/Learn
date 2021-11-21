@@ -1,0 +1,20 @@
+@startuml
+title adapter pattern
+
+class Adaptee{
+    + oldFunction()
+}
+
+interface ITarget{
+    + requestFunction()
+}
+
+class Adapter{
+    + <<extend>> oldFunction()
+    + <<implement>> requestFunction()
+}
+
+Adapter .up.|> ITarget
+Adapter .up.|> Adaptee
+
+@enduml

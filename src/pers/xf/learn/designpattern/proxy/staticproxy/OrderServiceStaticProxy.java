@@ -30,6 +30,10 @@ public class OrderServiceStaticProxy implements IOrderService {
         return after();
     }
 
+    /**
+     * 根据订单时间动态切换数据源
+     * @param order
+     */
     private void before(Order order){
         Long time = order.getCreateTime();
         int dbRouter = Integer.parseInt(yearFormat.format(new Date(time)));

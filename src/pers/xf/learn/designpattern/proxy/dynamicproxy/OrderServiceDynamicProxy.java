@@ -10,6 +10,11 @@ import java.util.Date;
 
 /**
  * 使用动态代理实现之后，不仅能实现Order类的数据源动态路由，还可以实现其他任何类的数据源路由。
+ *
+ *             Long time = (Long) target
+ *                     .getClass()
+ *                     .getMethod("getCreateTime")
+ *                     .invoke(target);
  */
 public class OrderServiceDynamicProxy implements InvocationHandler {
     private SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
@@ -29,6 +34,11 @@ public class OrderServiceDynamicProxy implements InvocationHandler {
         return object;
     }
 
+    /**
+     * 根据任何对象的时间属性(前提是具有这个方法, 一般通过接口来规范),
+     * 并根据时间切换数据源.
+     * @param target
+     */
     private void before(Object target){
         try {
             Long time = (Long) target
