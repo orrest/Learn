@@ -1,0 +1,30 @@
+@startuml
+title facade pattern
+
+class Facade{
+    - <<instance>>SubsystemA a
+    - <<instance>>SubsystemB b
+    - <<instance>>SubsystemC c
+
+    + doA()
+    + doB()
+    + doC()
+}
+
+class SubsystemA{
+    request();
+}
+
+class SubsystemB{
+    execute();
+}
+
+class SubsystemC{
+    callingForResult();
+}
+
+SubsystemA -up-* Facade
+SubsystemB -up-* Facade
+SubsystemC -up-* Facade
+
+@enduml
