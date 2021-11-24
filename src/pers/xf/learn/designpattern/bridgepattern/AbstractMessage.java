@@ -7,7 +7,7 @@ public abstract class AbstractMessage {
         this.message = message;
     }
 
-    public void sendMessage(String message, String toUser){
-        this.message.send(message, toUser);
+    public void sendMessage(){
+        this.message.send();
     }
 }

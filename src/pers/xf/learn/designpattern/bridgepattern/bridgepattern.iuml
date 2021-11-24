@@ -1,0 +1,41 @@
+@startuml
+title bridge pattern
+
+interface IMessage{
+    + <<abstract>> send(message, to)
+    + <<abstract>> setFlag(String flag)
+}
+
+abstract class AbstractMessage{
+    + IMessage message;
+    + usingMessageSendMessage()
+}
+
+class SmsMessage{
+    + <<constructor>> SmsMessage(text, to)
+    + <<override>> sendMessage()
+    + <<override>> setFlag(flag)
+}
+
+class EmailMessage{
+    + <<constructor>> EmailMessage(text, to)
+    + <<override>> sendMessage()
+    + <<override>> setFlag(flag)
+}
+
+class NormalMessage{
+    + <<constructor>> NormalMessage(msgObj)
+}
+
+class UrgentMessage{
+    + <<constructor>> UrgentMessage(msgObj)
+}
+
+SmsMessage .up.|> IMessage
+EmailMessage .up.|> IMessage
+
+NormalMessage -up-|> AbstractMessage
+UrgentMessage -up-|> AbstractMessage
+
+IMessage -right-* AbstractMessage
+@enduml

@@ -1,0 +1,24 @@
+@startuml
+title decorator pattern
+
+abstract class Component{
+    + <<abstract>> basicFunction()
+}
+
+abstract class Decorator{
+    + <<override>> basicFunction()
+}
+
+class BasicComponent{
+    + <<override>> basicFunction()
+}
+
+class DecoratorA{
+    + <<override>> basicFunction()
+}
+
+class DecoratorB{
+    + <<override>> basicFunction()
+}
+
+@enduml
