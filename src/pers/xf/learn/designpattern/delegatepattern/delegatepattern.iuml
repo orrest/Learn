@@ -1,0 +1,27 @@
+@startuml
+title delegate pattern
+
+interface ITask{
+    + <<abstract>> doTask()
+}
+
+class ConcreteA{
+    + <<implement>> doTask()
+}
+
+class ConcreteB{
+    + <<implement>> doTask()
+}
+
+class Delegate{
+    + <<choose>> doTask()
+}
+
+ConcreteA .right.|> ITask
+Delegate .up.|> ITask
+ConcreteB .left.|> ITask
+
+Delegate .up.> "choose or not" ConcreteB
+Delegate .up.> "choose or not" ConcreteA
+
+@enduml
