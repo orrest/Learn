@@ -1,0 +1,21 @@
+@startuml
+title template method pattern
+
+abstract class Template{
+    ~ step1();
+    ~ step2();
+    ~ step3();
+    + templateMethod();
+}
+
+class ConcreteA{
+    ~ <<override>> step1()
+}
+
+class ConcreteB{
+    ~ <<override>> step2()
+}
+
+ConcreteA -up-|> Template
+ConcreteB -up-|> Template
+@enduml
