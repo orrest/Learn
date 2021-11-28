@@ -1,0 +1,28 @@
+@startuml
+title strategy pattern
+
+abstract class AStrategy{
+    + pay(String, double)  // 封装了通用流程
+    # <<abstract>> queryBalance()
+}
+
+class ConcreteStrategyA{
+    # <<override>> queryBalance()
+}
+
+class ConcreteStrategyB{
+    # <<override>> queryBalance()
+}
+
+class Context{
+    - static final Map<String, Payment> strategy = new HashMap<>();
+    + static get(strategyKey)
+}
+
+ConcreteStrategyA -up-|> AStrategy
+ConcreteStrategyB -up-|> AStrategy
+
+ConcreteStrategyA -down-* "1" Context
+ConcreteStrategyB -down-* "1" Context
+
+@enduml
