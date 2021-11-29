@@ -1,0 +1,25 @@
+@startuml
+title iterator pattern
+
+interface Iterator{
+    + E next()
+    + boolean hasNext()
+}
+
+interface ICollection{
+    + boolean add(E)
+    + boolean remove(E)
+    + Iterator<E> iterator()
+}
+
+class ConcreteIterator{
+}
+
+class ConcreteCollection{
+}
+
+ConcreteIterator .up.|> Iterator
+ConcreteCollection .up.|> ICollection
+
+ConcreteCollection "1" o.right.> ConcreteIterator: iterator()
+@enduml
