@@ -1,0 +1,35 @@
+@startuml
+title command pattern
+
+class GPlayer{
+    + pause()
+    + play()
+}
+
+interface IAction{
+    + execute();
+}
+
+class PlayAction{
+    - GPlayer player;
+}
+
+class PauseAction{
+    - GPlayer player;
+}
+
+class Controller{
+    - List<IAction> actions;
+    + execute(IAction)
+    + executeAll()
+}
+
+PlayAction .up.|> IAction
+PauseAction .up.|> IAction
+
+IAction "n"-right-*"1" Controller
+
+GPlayer "1"-up-*"1" PlayAction
+GPlayer "1"-up-*"1" PauseAction
+
+@enduml
