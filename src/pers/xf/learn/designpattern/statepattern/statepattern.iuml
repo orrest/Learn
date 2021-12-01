@@ -1,0 +1,44 @@
+@startuml
+title state pattern
+
+abstract class UserState{
+    ~ Context context;
+    + setContext(context);
+    + abstract void favorite();
+    + abstract void comment(comment);
+}
+
+class LoginState{
+}
+
+class VisitorState{
+}
+
+class Context{
+    + static final UserState STATE_LOGIN = new LoginState;
+    + static final UserState STATE_VISITOR = new VisitorState;
+    - UserState currentState = STATE_VISITOR;
+
+    + setState(state)
+    + getState()
+    + favorite()
+    + comment(comment)
+}
+
+LoginState -up-|> UserState
+VisitorState -up-|> UserState
+UserState "*"-right-*"1" Context
+
+note as N1
+Context中维护了currentState;
+使用时总是通过currentState
+调用具体State实现的方法.
+
+所有状态的变化都反映到Context中.
+
+在具体State类中改变了状态需要
+通过state.context.setContext
+更新context中维护的currentState
+end note
+
+@enduml
