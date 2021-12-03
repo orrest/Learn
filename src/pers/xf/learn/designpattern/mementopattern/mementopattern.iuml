@@ -1,0 +1,24 @@
+@startuml
+title memento pattern
+
+class ArticleMemento{
+    - title
+    - context
+}
+
+class Editor{
+    - title
+    - context
+}
+
+class DraftSaver{
+    - final LinkedList<ArticleMemento> STACK
+    + getMemento()
+    + addMemento(mem)
+    + removeMemento()
+}
+
+Editor -up-> ArticleMemento: copy state to
+ArticleMemento -right-*  DraftSaver
+
+@enduml
