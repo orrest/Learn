@@ -1,0 +1,23 @@
+@startuml
+title mediator pattern
+
+class User{
+    - Message msg;
+    - String name;
+    + sendMessage()
+}
+
+class ChatRoom{
+    - Queue messageQueue
+    - Queue userQueue
+    + receive
+    + transfer(from, to)
+}
+
+class Message{
+}
+
+Message -up-* User
+User <-right-> ChatRoom: sendMessage->\n<-transfer
+
+@enduml
