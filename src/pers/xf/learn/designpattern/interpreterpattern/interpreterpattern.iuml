@@ -1,0 +1,32 @@
+@startuml
+title interpreter pattern
+
+interface IInterpreter{
+    + <<abstract>> interpret()
+}
+
+'AddInterpreter
+class NonTerminalInterpreter{
+    + IInterpreter[] expressions;
+    + interpret()
+}
+
+'NumInterpreter
+class TerminalInterpreter{
+    + Object value;
+    + interpret()
+}
+
+'Calculator
+class Context{
+    + IInterpreter[] stack;
+    + parse()
+    + interpret()
+}
+
+NonTerminalInterpreter .up.|> IInterpreter
+TerminalInterpreter .up.|> IInterpreter
+NonTerminalInterpreter "*"-right->"1" Context
+TerminalInterpreter "*"-right-*"1" NonTerminalInterpreter
+
+@enduml
