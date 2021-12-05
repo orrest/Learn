@@ -1,0 +1,45 @@
+@startuml
+title visitor pattern
+
+interface IElement{
+    void accept(visitor);
+}
+
+class ConcreteElementA{
+    + operationA()
+}
+
+class ConcreteElementB{
+    + operationB()
+}
+
+interface IVisitor{
+    + void visit(ConcreteElementA element);
+    + void visit(ConcreteElementB element);
+}
+
+class ConcreteVisitorA{
+    + <<override>>void visit(elementA)
+    + <<override>>void visit(elementB)
+}
+
+class ConcreteVisitorB{
+    + <<override>>void visit(elementA)
+    + <<override>>void visit(elementB)
+}
+
+class ObjectStructure{
+    - List<IElement> list
+    + accept(visitor)
+}
+
+ConcreteElementA .up.|> IElement
+ConcreteElementB .up.|> IElement
+
+ConcreteVisitorA .up.|> IVisitor
+ConcreteVisitorB .up.|> IVisitor
+
+IElement "*"-right-*"1" ObjectStructure
+IVisitor "*"-left->"1" ObjectStructure: accept <
+
+@enduml
