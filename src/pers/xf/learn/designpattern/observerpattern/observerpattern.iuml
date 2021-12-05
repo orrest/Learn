@@ -1,0 +1,32 @@
+@startuml
+title observer pattern
+
+interface IListener{
+}
+
+class EventListener{
+    + void onXxx();
+}
+
+class Event{
+    - EventListener target;
+    - Method callback;
+}
+
+class EventContext{
+    # Map<String, Event> events
+    + addListener()
+    + inform()
+}
+
+class EventImpl{
+    + eventHappening()
+}
+
+EventImpl -up-|> EventContext
+EventListener .up.|> IListener
+
+EventListener -right-o Event: callback->
+Event -right-* EventContext
+
+@enduml
