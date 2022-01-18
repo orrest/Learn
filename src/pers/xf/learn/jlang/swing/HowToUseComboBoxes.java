@@ -28,7 +28,7 @@ public class HowToUseComboBoxes extends JPanel implements ActionListener {
      */
     private static void createAndShowGUI() {
         //Create and set up the window.
-        JFrame frame = new JFrame("LayeredPaneDemo");
+        JFrame frame = new JFrame("HowToUseComboBoxes");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Create and set up the content pane.
